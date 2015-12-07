@@ -6,3 +6,28 @@ block content
     div(class="jumbotron")
       h1(align="center") 网页api测试工具
       p(align="right") -- lzx
+
+    div(class="row")
+      div(class="col-sm-6")
+
+        select(id='select_type' name="type")
+          option(value="post") post
+          option(value="get") get
+        br
+
+        input(id="la_host" class="text", name="host", placeholder="host")
+        br
+
+
+        input(id="la_port" class="text", name="port", placeholder="port")
+        br
+
+        input(id="la_path" class="text", name="path", placeholder="path")
+        br
+
+        input(id="la_params" class="text", name="params", placeholder="params")
+        br
+
+        button(id="transmit" ,class="btn", onclick="btn_transmit_click()") 发送请求
+
+      div(id="result" class="col-sm-6")

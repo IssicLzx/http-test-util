@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var http = require('http');
-
+var querystring = require('querystring');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -12,18 +12,19 @@ router.post('/post', function(request, response, next){
   var body = request.body;
   console.log('body : %j', request.body);
 
+  var params = querystring.stringify(JSON.parse(body.params));
   if(body.type == 'post') {
-
+    console.log('params length: ' ,params.length );
     var options = {
       host : body.host,
       port : body.port,
       method: 'POST',
       path: body.path,
-      handers:{
-        "Content-Type": 'application/json',
-        "Content-Length": body.params.length
+      headers:{
+        "Content-Type": 'application/x-www-form-urlencoded',
+        'Content-Length': params.length
       }
-    }
+    };
 
     var req = http.request(options, function(res){
       if(res.statusCode == 200) {
@@ -39,10 +40,10 @@ router.post('/post', function(request, response, next){
         response.send(200, {code: res.statusCode});
       }
 
-    })
-
-    req.write(body.params);
-
+    });
+    console.log('params :' ,params);
+    req.write(params);
+    req.end();
 
   } else {
 

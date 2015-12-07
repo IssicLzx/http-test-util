@@ -2,7 +2,7 @@ extends layout
 
 block content
 
-  script post('127.0.0.1:3000', 'post', {abc:1});
-
-  h1= title
-  p Welcome to #{title}
+  div(class="container")
+    div(class="jumbotron")
+      h1(align="center") 网页api测试工具
+      p(align="right") -- lzx

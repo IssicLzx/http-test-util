@@ -11,7 +11,7 @@ function post(url, type, params){
             alert('post success' , ret );
         },
         error: function(err){
-            console.log('post fail , reason : %s', err)
+            console.log('post fail , reason : %s', err);
             alert('post fail ');
         }
     })

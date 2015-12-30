@@ -1,3 +1,5 @@
-/**
- * Created by Administrator on 2015/12/30.
- */
+var querystring = require('./node_modules/querystring');
+var params = querystring.stringify(
+    {"name":"小学生","roles":{"role":1}});
+console.log(params);
+console.log(querystring)

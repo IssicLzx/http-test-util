@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var http = require('http');
-var querystring = require('querystring');
+var querystring = require('../node_modules/querystring');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-var JsonToQueryString = function(obj){
+var JsonToCookieString = function(obj){
   var str = ''
       , i = 0;
   for(var key in obj) {
@@ -20,16 +20,29 @@ var JsonToQueryString = function(obj){
   return str;
 };
 
+var JsonToQueryString = function(obj){
+  var str = ''
+      , i = 0;
+  for(var key in obj) {
+    if (i != 0) {
+      str += '&';
+    }
+    i++;
+    str += key + '=' + JSON.stringify(obj[key]);
+  }
+  return str;
+};
+
+
 router.post('/post', function(request, response, next){
 
   var body = request.body;
   console.log('body : %j', request.body);
 
   var params = querystring.stringify(JSON.parse(body.params));
-  console.log('cookie: ', body.cookie);
-  var cookie = JsonToQueryString(JSON.parse(body.cookie));
-  console.log('params length: ' ,params.length );
-  console.log('cookie', cookie);
+  var cookie = JsonToCookieString(JSON.parse(body.cookie));
+
+
   if(body.type == 'post') {
     console.log('params length: ' ,params.length );
     var options = {

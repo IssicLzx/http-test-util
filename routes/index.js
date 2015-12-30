@@ -7,20 +7,38 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+var JsonToQueryString = function(obj){
+  var str = ''
+      , i = 0;
+  for(var key in obj) {
+    if (i != 0) {
+      str += ', ';
+    }
+    i++;
+    str += key + '=' + obj[key];
+  }
+  return str;
+};
+
 router.post('/post', function(request, response, next){
 
   var body = request.body;
   console.log('body : %j', request.body);
 
   var params = querystring.stringify(JSON.parse(body.params));
+  console.log('cookie: ', body.cookie);
+  var cookie = JsonToQueryString(JSON.parse(body.cookie));
+  console.log('params length: ' ,params.length );
+  console.log('cookie', cookie);
   if(body.type == 'post') {
     console.log('params length: ' ,params.length );
     var options = {
       host : body.host,
-      port : body.port,
+      port : parseInt(body.port),
       method: 'POST',
       path: body.path,
       headers:{
+        cookie:cookie,
         "Content-Type": 'application/x-www-form-urlencoded',
         'Content-Length': params.length
       }
@@ -37,7 +55,8 @@ router.post('/post', function(request, response, next){
       }
 
       else {
-        response.send(200, {code: res.statusCode});
+        console.log('res : ', res);
+        response.send(200, {code: res.statusCode  });
       }
 
     });

@@ -18,13 +18,14 @@ function get(url, params){
 
 }
 
-function post(host , port, path, params){
+function post(host , port, path, cookie,params){
 
     $.ajax({
         url: 'http://127.0.0.1:3000/post',
         method: 'post',
         dataType: 'json',
-        data: {host : host, port: port, path: path , type: 'post', params : params},
+        data: {host : host, port: port, path: path , type: 'post', params : params
+            , cookie: cookie},
         success: function (ret) {
             console.log('post success, and result : ');
             console.log(ret);
@@ -62,13 +63,12 @@ function btn_transmit_click(){
     //console.log('url :' , url);
 
     var type= $("select[name=type]").find("option:selected").val();
-    console.log('type :' , type);
     var params = $('#la_params').val();
-    console.log('params :' , params);
-
+    var cookie = $('#la_cookie').val();
+    console.log('cookie : ',cookie);
     var host = $('#la_host').val();
     var port = parseInt( $('#la_port').val() );
     var path =  $('#la_path').val();
 
-    post(host , port, path, params);
+    post(host , port, path, cookie, params);
 }

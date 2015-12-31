@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var http = require('http');
 var querystring = require('../node_modules/querystring');
+var request = require('request');
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -44,6 +47,7 @@ router.post('/post', function(request, response, next){
 
 
   if(body.type == 'post') {
+
     console.log('params length: ' ,params.length );
     var options = {
       host : body.host,

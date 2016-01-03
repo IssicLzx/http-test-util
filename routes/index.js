@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var http = require('http');
-var querystring = require('../node_modules/querystring');
-var request = require('request');
+var querystring = require('../querystring');
 
 
 /* GET home page. */
